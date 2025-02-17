@@ -30,8 +30,8 @@ const signInModel = mongoose.model("signin", signInSchema)
 
 app.get("/", async (req,res)=>{
     try{
-        await signInModel.find();
-        res.status(200).json({ signInModel})
+       const findAll = await signInModel.find();
+        res.status(200).json({ findAll})
     }catch(err){
         res.status(500).json({message:"internal server error", error:err.message})
     };
@@ -125,7 +125,7 @@ app.delete("/delete-user/:id",async (req,res)=>{
 app.all("/delete-all", async(req,res)=>{
     try{
        await signInModel.deleteMany()
-        res.json(200).json({status:true, message:"all user deleted"})
+        res.status(200).json({status:true, message:"all user deleted"})
     }catch(err){
         res.status(500).json({status:false, error:err.message})
     }
